@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:notez/data/controller/home_controller.dart';
+import 'package:notez/utils/app_theme.dart';
 import 'package:notez/utils/shared_prefs.dart';
 import 'package:notez/views/home_views.dart';
 
@@ -12,6 +14,8 @@ void main() async {
 
   await SharedPreferenceService.init();
   await Hive.initFlutter();
+
+  Get.lazyPut(() => HomeController());
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -25,10 +29,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Notez',
-      theme: ThemeData(
-        useMaterial3: true,
-      ),
+      title: 'TheNotez',
+      theme: AppThemeUtils.lightTheme,
+      darkTheme: AppThemeUtils.darkTheme,
       home: const NotezSplashScreenViews(),
     );
   }
@@ -64,9 +67,9 @@ class _NotezSplashScreenViewsState extends State<NotezSplashScreenViews> {
               'assets/logo-notes.png',
               scale: 0.8,
             ),
-            Text(
+            const Text(
               'TheNotez',
-              style: TextStyle(fontSize: 40),
+              style: const TextStyle(fontSize: 40),
             ),
           ],
         ),
