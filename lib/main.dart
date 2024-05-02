@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:notez/utils/shared_prefs.dart';
@@ -25,15 +24,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      ensureScreenSize: true,
-      child: GetMaterialApp(
-        title: 'Notez',
-        theme: ThemeData(
-          useMaterial3: true,
-        ),
-        home: const NotezSplashScreenViews(),
+    return GetMaterialApp(
+      title: 'Notez',
+      theme: ThemeData(
+        useMaterial3: true,
       ),
+      home: const NotezSplashScreenViews(),
     );
   }
 }
@@ -60,7 +56,20 @@ class _NotezSplashScreenViewsState extends State<NotezSplashScreenViews> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Image.asset('assets/logo-notes.png'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/logo-notes.png',
+              scale: 0.8,
+            ),
+            Text(
+              'TheNotez',
+              style: TextStyle(fontSize: 40),
+            ),
+          ],
+        ),
       ),
     );
   }
