@@ -5,9 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:notez/data/controller/home_controller.dart';
+import 'package:notez/data/local/note_db.dart';
+import 'package:notez/data/model/note.dart';
 import 'package:notez/utils/app_theme.dart';
 import 'package:notez/utils/shared_prefs.dart';
-import 'package:notez/views/home_views.dart';
+import 'package:notez/views/home/home_views.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +17,11 @@ void main() async {
   await SharedPreferenceService.init();
   await Hive.initFlutter();
 
+  // Adapter
+  Hive.registerAdapter(NoteAdapter());
+  await NoteDB.init();
+
+  // Get Controller
   Get.lazyPut(() => HomeController());
 
   SystemChrome.setPreferredOrientations([
@@ -48,7 +55,7 @@ class _NotezSplashScreenViewsState extends State<NotezSplashScreenViews> {
   @override
   void initState() {
     Timer(
-      const Duration(seconds: 3),
+      const Duration(seconds: 5),
       () => Get.off(() => const HomePageViews()),
     );
 
@@ -69,7 +76,14 @@ class _NotezSplashScreenViewsState extends State<NotezSplashScreenViews> {
             ),
             const Text(
               'TheNotez',
-              style: const TextStyle(fontSize: 40),
+              style: TextStyle(fontSize: 40),
+            ),
+            const Text(
+              'An app by Mai Bebi Powder team',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ],
         ),

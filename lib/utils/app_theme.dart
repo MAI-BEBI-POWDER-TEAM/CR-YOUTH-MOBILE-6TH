@@ -4,6 +4,7 @@ class AppThemeUtils {
   static final lightTheme = ThemeData(
     brightness: Brightness.light,
     scaffoldBackgroundColor: kPrimaryWhite,
+    primaryColor: kPrimaryWhite,
     cardColor: kSecondaryWhite,
     useMaterial3: true,
     fontFamily: 'Poppins',
@@ -12,6 +13,7 @@ class AppThemeUtils {
   static final darkTheme = ThemeData(
     brightness: Brightness.dark,
     scaffoldBackgroundColor: kPrimaryBlack,
+    primaryColor: kPrimaryBlack,
     cardColor: kSecondaryBlack,
     useMaterial3: true,
     fontFamily: 'Poppins',
@@ -29,3 +31,4 @@ const kSecondaryWhite = Color.fromRGBO(226, 226, 226, 1);
 // OTHER COLORS
 const kWhite = Color.fromRGBO(255, 255, 255, 1);
 const kGrey = Color.fromRGBO(127, 127, 127, 1);
+const kBlue = Color.fromRGBO(52, 113, 255, 1);
