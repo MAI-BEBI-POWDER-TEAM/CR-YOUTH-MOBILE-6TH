@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:notez/data/controller/home_controller.dart';
+import 'package:notez/data/model/note.dart';
 import 'package:notez/utils/app_theme.dart';
+import 'package:notez/views/home/home_views.dart';
+import 'package:uuid/uuid.dart';
 
 class AddNotePageViews extends StatefulWidget {
   const AddNotePageViews({super.key});
@@ -70,7 +74,7 @@ class _AddNotePageViewsState extends State<AddNotePageViews> {
         ),
       ),
       body: SafeArea(
-        child: Container(),
+        child: buildNoteForms(),
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(right: 16, bottom: 16),
@@ -78,10 +82,81 @@ class _AddNotePageViewsState extends State<AddNotePageViews> {
           elevation: 1,
           backgroundColor: kBlue,
           shape: const CircleBorder(),
-          onPressed: () {},
+          onPressed: () async {
+            Uuid uuid = const Uuid();
+
+            String title = '';
+            String text = '';
+
+            if (titleController.text.isEmpty) {
+              title = 'Untitled';
+            } else {
+              title = titleController.text;
+            }
+
+            if (descriptionController.text.isEmpty) {
+              Get.snackbar(
+                'TheNotez',
+                'Please enter some text for the notes!',
+                backgroundColor: Colors.redAccent.withOpacity(0.5),
+              );
+            } else {
+              text = descriptionController.text;
+
+              Note note = Note(
+                uuid: uuid.v4(),
+                title: title,
+                text: text,
+                isPinned: false,
+                createdAt: DateTime.now(),
+                updatedAt: DateTime.now(),
+              );
+
+              await _controller.addNote(note);
+              Get.offAll(() => const HomePageViews());
+            }
+          },
           child: const Icon(Icons.save, size: 28, color: kWhite),
         ),
       ),
+    );
+  }
+
+  Column buildNoteForms() {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: TextFormField(
+            controller: titleController,
+            maxLength: 24,
+            style: const TextStyle(fontSize: 24),
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              hintText: 'Untitled',
+              hintStyle: TextStyle(fontSize: 24, color: Colors.grey),
+            ),
+          ),
+        ),
+        Container(
+          height: 0.5,
+          width: MediaQuery.of(context).size.width,
+          color: Colors.grey,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: TextFormField(
+            controller: descriptionController,
+            maxLength: 200,
+            maxLines: 22,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              hintText: 'Your Notes',
+              hintStyle: TextStyle(color: Colors.grey),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

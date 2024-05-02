@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:notez/data/controller/home_controller.dart';
+// import 'package:get/get.dart';
+// import 'package:notez/data/controller/home_controller.dart';
 
 class DetailNotePageViews extends StatefulWidget {
   final String title;
@@ -12,7 +12,7 @@ class DetailNotePageViews extends StatefulWidget {
 }
 
 class _DetailNotePageViewsState extends State<DetailNotePageViews> {
-  final HomeController _controller = Get.find();
+  // final HomeController _controller = Get.find();
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:notez/data/controller/home_controller.dart';
@@ -19,6 +20,7 @@ class _HomePageViewsState extends State<HomePageViews> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: const Text(
           'TheNotez',
@@ -130,7 +132,55 @@ class _HomePageViewsState extends State<HomePageViews> {
             ),
           );
         } else {
-          return Container();
+          return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 16,
+              ),
+              itemCount: notes.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  elevation: 1.5,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 8),
+                          child: Text(
+                            notes.getAt(index)?.title,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                        Container(height: 0.5, color: Colors.grey),
+                        Container(
+                          margin: const EdgeInsets.only(top: 16),
+                          child: Text(
+                            notes.getAt(index)?.text,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 3,
+                            style: const TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
         }
       },
     );

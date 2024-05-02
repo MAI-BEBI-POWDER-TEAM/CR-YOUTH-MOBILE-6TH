@@ -5,17 +5,20 @@ part 'note.g.dart';
 @HiveType(typeId: 0)
 class Note extends HiveObject {
   @HiveField(0)
-  final String? title;
+  final String? uuid;
   @HiveField(1)
-  final String? text;
+  final String? title;
   @HiveField(2)
-  final bool? isPinned;
+  final String? text;
   @HiveField(3)
-  final DateTime? createdAt;
+  final bool? isPinned;
   @HiveField(4)
+  final DateTime? createdAt;
+  @HiveField(5)
   final DateTime? updatedAt;
 
   Note({
+    this.uuid,
     this.title,
     this.text,
     this.isPinned,
@@ -27,6 +30,7 @@ class Note extends HiveObject {
   String toString() {
     return '''
           Note {
+            uuid: $uuid
             title: $title
             text: $text
             isPinned: $isPinned
