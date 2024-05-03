@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -20,6 +22,7 @@ class _AddNotePageViewsState extends State<AddNotePageViews> {
   TextEditingController descriptionController = TextEditingController();
 
   final HomeController _controller = Get.find();
+  var uuid = const Uuid();
 
   @override
   Widget build(BuildContext context) {
@@ -83,8 +86,6 @@ class _AddNotePageViewsState extends State<AddNotePageViews> {
           backgroundColor: kBlue,
           shape: const CircleBorder(),
           onPressed: () async {
-            Uuid uuid = const Uuid();
-
             String title = '';
             String text = '';
 
@@ -102,15 +103,20 @@ class _AddNotePageViewsState extends State<AddNotePageViews> {
               );
             } else {
               text = descriptionController.text;
+            }
 
+            if (descriptionController.text.isNotEmpty &&
+                titleController.text.isNotEmpty) {
               Note note = Note(
-                uuid: uuid.v4(),
+                uuid: uuid.v1(),
                 title: title,
                 text: text,
                 isPinned: false,
                 createdAt: DateTime.now(),
                 updatedAt: DateTime.now(),
               );
+
+              log(note.toString(), name: 'add-note-views');
 
               await _controller.addNote(note);
               Get.offAll(() => const HomePageViews());
@@ -148,11 +154,13 @@ class _AddNotePageViewsState extends State<AddNotePageViews> {
           child: TextFormField(
             controller: descriptionController,
             maxLength: 200,
-            maxLines: 22,
+            maxLines: 18,
             decoration: const InputDecoration(
               border: InputBorder.none,
               hintText: 'Your Notes',
-              hintStyle: TextStyle(color: Colors.grey),
+              hintStyle: TextStyle(
+                color: Colors.grey,
+              ),
             ),
           ),
         ),

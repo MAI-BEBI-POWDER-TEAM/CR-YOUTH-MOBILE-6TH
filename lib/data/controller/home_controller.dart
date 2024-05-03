@@ -5,6 +5,7 @@ import 'package:notez/data/model/note.dart';
 
 class HomeController extends GetxController {
   Rx<ThemeMode> currentTheme = ThemeMode.system.obs;
+  
 
   void switchTheme() {
     currentTheme.value = currentTheme.value == ThemeMode.light
@@ -14,8 +15,13 @@ class HomeController extends GetxController {
 
   final noteBox = NoteDB.noteBox;
 
+  Stream<Note> getSingleNote(String uuid) async* {
+    yield NoteDB.getNote(uuid);
+  }
+
   Future<void> addNote(Note note) async {
     final Note newNote = Note(
+      uuid: note.uuid,
       title: note.title,
       text: note.text,
       isPinned: note.isPinned,
@@ -28,6 +34,7 @@ class HomeController extends GetxController {
 
   Future<void> updateNote(Note note) async {
     final Note newNote = Note(
+      uuid: note.uuid,
       title: note.title,
       text: note.text,
       isPinned: note.isPinned,
@@ -36,5 +43,9 @@ class HomeController extends GetxController {
     );
 
     await NoteDB.updateNote(newNote);
+  }
+
+  Future<void> deleteNote(String uuid) async {
+    await NoteDB.deleteNote(uuid);
   }
 }

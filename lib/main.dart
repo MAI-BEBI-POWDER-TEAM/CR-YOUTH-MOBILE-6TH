@@ -22,7 +22,7 @@ void main() async {
   await NoteDB.init();
 
   // Get Controller
-  Get.lazyPut(() => HomeController());
+  Get.put(HomeController(), permanent: true);
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

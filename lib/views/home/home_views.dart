@@ -1,11 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:notez/data/controller/home_controller.dart';
+import 'package:notez/data/model/note.dart';
 import 'package:notez/utils/app_theme.dart';
 import 'package:notez/views/note/add_note_views.dart';
+import 'package:notez/views/note/detail_note_views.dart';
 
 class HomePageViews extends StatefulWidget {
   const HomePageViews({super.key});
@@ -143,38 +147,51 @@ class _HomePageViewsState extends State<HomePageViews> {
               ),
               itemCount: notes.length,
               itemBuilder: (context, index) {
-                return Card(
-                  elevation: 1.5,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 8),
-                          child: Text(
-                            notes.getAt(index)?.title,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            style: const TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w700,
+                Note data = notes.getAt(index)!;
+
+                return InkWell(
+                  onTap: () {
+                    log(data.toString(), name: 'home-views');
+
+                    Get.to(
+                      () => DetailNotePageViews(
+                        note: data,
+                      ),
+                    );
+                  },
+                  child: Card(
+                    elevation: 1.5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 8),
+                            child: Text(
+                              notes.getAt(index)?.title,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
-                        ),
-                        Container(height: 0.5, color: Colors.grey),
-                        Container(
-                          margin: const EdgeInsets.only(top: 16),
-                          child: Text(
-                            notes.getAt(index)?.text,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 3,
-                            style: const TextStyle(
-                              fontSize: 14,
+                          Container(height: 0.5, color: Colors.grey),
+                          Container(
+                            margin: const EdgeInsets.only(top: 16),
+                            child: Text(
+                              notes.getAt(index)?.text,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 3,
+                              style: const TextStyle(
+                                fontSize: 14,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 );
