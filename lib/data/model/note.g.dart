@@ -20,7 +20,7 @@ class NoteAdapter extends TypeAdapter<Note> {
       uuid: fields[0] as String?,
       title: fields[1] as String?,
       text: fields[2] as String?,
-      isPinned: fields[3] as bool?,
+      isPinned: fields[3] as bool,
       createdAt: fields[4] as DateTime?,
       updatedAt: fields[5] as DateTime?,
     );

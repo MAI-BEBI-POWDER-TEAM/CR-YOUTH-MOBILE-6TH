@@ -11,7 +11,7 @@ class Note extends HiveObject {
   @HiveField(2)
   final String? text;
   @HiveField(3)
-  final bool? isPinned;
+  bool isPinned;
   @HiveField(4)
   final DateTime? createdAt;
   @HiveField(5)
@@ -21,7 +21,7 @@ class Note extends HiveObject {
     this.uuid,
     this.title,
     this.text,
-    this.isPinned,
+    required this.isPinned,
     this.createdAt,
     this.updatedAt,
   });

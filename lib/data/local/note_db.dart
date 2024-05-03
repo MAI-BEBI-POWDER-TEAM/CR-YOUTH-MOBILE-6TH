@@ -16,18 +16,15 @@ class NoteDB {
 
   // B. Read All Note
   static Future<List<Note>> getAllNotes() async => noteBox.values.toList();
+  
   // C. Read Specific Note
   static Note getNote(String uuid) => noteBox.values
       .toList()
       .firstWhere((element) => uuid == element.uuid.toString());
+
   // D. Update Note
   static Future<void> updateNote(Note note) async {
-    await deleteNote(note.uuid!);
-
-    await noteBox.put(
-      note.uuid,
-      note,
-    );
+    await noteBox.put(note.uuid, note);
   }
 
   // E. Delete Note

@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:notez/data/controller/home_controller.dart';
 import 'package:notez/data/model/note.dart';
 import 'package:notez/utils/app_theme.dart';
+import 'package:notez/views/home/home_views.dart';
 
 class DetailNotePageViews extends StatefulWidget {
   final Note note;
@@ -52,6 +53,13 @@ class _DetailNotePageViewsState extends State<DetailNotePageViews> {
           'Details',
           style: TextStyle(fontWeight: FontWeight.w700),
         ),
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () => Get.off(
+            () => HomePageViews(),
+          ),
+          icon: Icon(CupertinoIcons.back, color: kWhite),
+        ),
       ),
       body: SafeArea(child: fetchNotesData()),
       floatingActionButton: Padding(
@@ -68,16 +76,20 @@ class _DetailNotePageViewsState extends State<DetailNotePageViews> {
               elevation: 1.5,
               backgroundColor: kBlue,
               onTap: () {
-                Note note = Note(
-                  uuid: widget.note.uuid,
-                  title: titleController.text,
-                  text: descriptionController.text,
-                  isPinned: false,
-                  createdAt: widget.note.createdAt,
-                  updatedAt: DateTime.now(),
-                );
+                // Note note = Note(
+                //   uuid: widget.note.uuid,
+                //   title: titleController.text,
+                //   text: descriptionController.text,
+                //   isPinned: widget.note.isPinned,
+                //   createdAt: widget.note.createdAt,
+                //   updatedAt: DateTime.now(),
+                // );
 
-                _controller.updateNote(note);
+                // _controller.deleteNote(note.uuid!);
+                // _controller.addNote(note);
+                // Get.off(() => HomePageViews());
+
+                Get.snackbar('Update', 'Still in development');
               },
             ),
             SpeedDialChild(
