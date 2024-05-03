@@ -6,8 +6,6 @@ import 'package:notez/data/model/note.dart';
 
 class HomeController extends GetxController {
   Rx<ThemeMode> currentTheme = ThemeMode.system.obs;
-  RxList<Note> notes = <Note>[].obs;
-  
   late Box<Note> notebox;
 
   void switchPinned(Note note) {
@@ -24,9 +22,7 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    
     notebox = NoteDB.noteBox;
-    notes.assignAll(notebox.values.toList());
   }
 
   Stream<Note> getSingleNote(String uuid) async* {
@@ -46,17 +42,20 @@ class HomeController extends GetxController {
     await NoteDB.addNote(newNote);
   }
 
-  Future<void> updateNote(Note note) async {
-    final index = notes.indexWhere((n) => n.uuid == note.uuid);
+  Future<void> updateNote(int index, Note note) async {
+    final Note newNote = Note(
+      uuid: note.uuid,
+      title: note.title,
+      text: note.text,
+      isPinned: note.isPinned,
+      createdAt: note.createdAt,
+      updatedAt: note.updatedAt,
+    );
 
-    if (index != -1) {
-      notes[index] = note;
-    }
-
-    await NoteDB.updateNote(note);
+    await NoteDB.updateNote(index, newNote);
   }
 
-  Future<void> deleteNote(String uuid) async {
-    await NoteDB.deleteNote(uuid);
+  Future<void> deleteNote(int index) async {
+    await NoteDB.deleteNote(index);
   }
 }

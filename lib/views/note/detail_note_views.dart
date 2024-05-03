@@ -1,10 +1,9 @@
-import 'dart:developer';
+// import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:intl/intl.dart';
 import 'package:notez/data/controller/home_controller.dart';
 import 'package:notez/data/model/note.dart';
@@ -12,9 +11,14 @@ import 'package:notez/utils/app_theme.dart';
 import 'package:notez/views/home/home_views.dart';
 
 class DetailNotePageViews extends StatefulWidget {
+  final int index;
   final Note note;
 
-  const DetailNotePageViews({super.key, required this.note});
+  const DetailNotePageViews({
+    super.key,
+    required this.index,
+    required this.note,
+  });
 
   @override
   State<DetailNotePageViews> createState() => _DetailNotePageViewsState();
@@ -55,13 +59,13 @@ class _DetailNotePageViewsState extends State<DetailNotePageViews> {
         ),
         automaticallyImplyLeading: false,
         leading: IconButton(
-          onPressed: () => Get.off(
-            () => HomePageViews(),
-          ),
-          icon: Icon(CupertinoIcons.back, color: kWhite),
+          onPressed: () => Get.back(),
+          icon: const Icon(CupertinoIcons.back, color: kWhite),
         ),
       ),
-      body: SafeArea(child: fetchNotesData()),
+      body: SafeArea(
+        child: SingleChildScrollView(child: fetchNotesData()),
+      ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(right: 16, bottom: 16),
         child: SpeedDial(
@@ -76,20 +80,17 @@ class _DetailNotePageViewsState extends State<DetailNotePageViews> {
               elevation: 1.5,
               backgroundColor: kBlue,
               onTap: () {
-                // Note note = Note(
-                //   uuid: widget.note.uuid,
-                //   title: titleController.text,
-                //   text: descriptionController.text,
-                //   isPinned: widget.note.isPinned,
-                //   createdAt: widget.note.createdAt,
-                //   updatedAt: DateTime.now(),
-                // );
+                Note note = Note(
+                  uuid: widget.note.uuid,
+                  title: titleController.text,
+                  text: descriptionController.text,
+                  isPinned: widget.note.isPinned,
+                  createdAt: widget.note.createdAt,
+                  updatedAt: DateTime.now(),
+                );
 
-                // _controller.deleteNote(note.uuid!);
-                // _controller.addNote(note);
-                // Get.off(() => HomePageViews());
-
-                Get.snackbar('Update', 'Still in development');
+                _controller.updateNote(widget.index, note);
+                Get.snackbar('TheNotez', 'Note edited!');
               },
             ),
             SpeedDialChild(
@@ -102,8 +103,9 @@ class _DetailNotePageViewsState extends State<DetailNotePageViews> {
                   builder: (context) {
                     return AlertDialog(
                       title: const Text('Delete Note'),
-                      content:
-                          const Text('Are you sure want to delete this note?'),
+                      content: const Text(
+                        'Are you sure want to delete this note?',
+                      ),
                       actions: [
                         TextButton(
                           child: const Text(
@@ -120,12 +122,10 @@ class _DetailNotePageViewsState extends State<DetailNotePageViews> {
                             style: TextStyle(color: Colors.red),
                           ),
                           onPressed: () {
-                            _controller.deleteNote(
-                              widget.note.uuid.toString(),
-                            );
+                            _controller.deleteNote(widget.index);
+                            Get.snackbar('TheNotez', 'Note deleted!');
 
-                            Get.back();
-                            Get.back();
+                            Get.offAll(() => const HomePageViews());
                           },
                         ),
                       ],

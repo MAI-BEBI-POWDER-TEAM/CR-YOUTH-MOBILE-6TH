@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:notez/data/controller/home_controller.dart';
 import 'package:notez/data/model/note.dart';
@@ -77,7 +76,7 @@ class _AddNotePageViewsState extends State<AddNotePageViews> {
         ),
       ),
       body: SafeArea(
-        child: buildNoteForms(),
+        child: SingleChildScrollView(child: buildNoteForms()),
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(right: 16, bottom: 16),

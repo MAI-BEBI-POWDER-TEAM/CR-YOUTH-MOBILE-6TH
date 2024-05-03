@@ -8,13 +8,11 @@ import 'package:notez/data/controller/home_controller.dart';
 import 'package:notez/data/local/note_db.dart';
 import 'package:notez/data/model/note.dart';
 import 'package:notez/utils/app_theme.dart';
-import 'package:notez/utils/shared_prefs.dart';
 import 'package:notez/views/home/home_views.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await SharedPreferenceService.init();
   await Hive.initFlutter();
 
   // Adapter
