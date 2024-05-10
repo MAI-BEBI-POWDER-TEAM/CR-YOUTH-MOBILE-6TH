@@ -1,6 +1,7 @@
 # notez
 
-A note app using Hive & GetX State Management
+This code improved the previous "Note app created using Hive & GetX" 
+which can be found here: [Notez Repository](https://github.com/MAI-BEBI-POWDER-TEAM/CR-YOUTH-MOBILE-5TH)
 
 ## Getting Started
 
@@ -24,3 +25,33 @@ samples, guidance on mobile development, and a full API reference.
 1. Personally, it's our best choice for small to mid-level project
 2. Efficient for MVC approach, our style indeed
 3. Well, GetX includes widget supports, live & observable data transaction, which simplifies coding process
+
+## Clean Architecture Tree
+```
+lib/
+-- app/
+    views/
+        home/
+            home_views.dart
+        note/
+            add_note_views.dart
+            detail_note_views.dart
+-- data/
+    controller/
+        note_controller.dart
+    local/
+        note_db.dart
+-- domain/
+    entities/
+        note.dart
+        note.g.dart
+    repositories/
+        note_repository.dart
+    usecase/
+        note_usecase.dart
+-- utils/
+    app_theme.dart
+    extension/
+        app_theme_ext.dart
+-- main.dart
+```

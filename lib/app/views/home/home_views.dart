@@ -6,9 +6,9 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:notez/data/controller/note_controller.dart';
 import 'package:notez/domain/entities/note.dart';
-import 'package:notez/utils/app_theme.dart';
 import 'package:notez/app/views/note/add_note_views.dart';
 import 'package:notez/app/views/note/detail_note_views.dart';
+import 'package:notez/utils/extension/app_theme_ext.dart';
 
 class HomePageViews extends StatefulWidget {
   const HomePageViews({super.key});

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notez/data/controller/note_controller.dart';
 import 'package:notez/domain/entities/note.dart';
-import 'package:notez/utils/app_theme.dart';
 import 'package:notez/app/views/home/home_views.dart';
+import 'package:notez/utils/extension/app_theme_ext.dart';
 import 'package:uuid/uuid.dart';
 
 class AddNotePageViews extends StatefulWidget {

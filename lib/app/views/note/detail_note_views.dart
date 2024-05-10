@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:notez/data/controller/note_controller.dart';
 import 'package:notez/domain/entities/note.dart';
-import 'package:notez/utils/app_theme.dart';
 import 'package:notez/app/views/home/home_views.dart';
+import 'package:notez/utils/extension/app_theme_ext.dart';
 
 class DetailNotePageViews extends StatefulWidget {
   final int index;
