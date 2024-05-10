@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:notez/data/controller/home_controller.dart';
-import 'package:notez/data/model/note.dart';
+import 'package:notez/data/controller/note_controller.dart';
+import 'package:notez/domain/entities/note.dart';
 import 'package:notez/utils/app_theme.dart';
-import 'package:notez/views/note/add_note_views.dart';
-import 'package:notez/views/note/detail_note_views.dart';
+import 'package:notez/app/views/note/add_note_views.dart';
+import 'package:notez/app/views/note/detail_note_views.dart';
 
 class HomePageViews extends StatefulWidget {
   const HomePageViews({super.key});
@@ -18,7 +18,7 @@ class HomePageViews extends StatefulWidget {
 }
 
 class _HomePageViewsState extends State<HomePageViews> {
-  final HomeController _controller = Get.find();
+  final NoteController _controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +75,8 @@ class _HomePageViewsState extends State<HomePageViews> {
     return ValueListenableBuilder(
       valueListenable: _controller.notebox.listenable(),
       builder: (context, notes, _) {
+        log(notes.length.toString());
+
         if (notes.isEmpty) {
           return Center(
             child: SizedBox(
@@ -140,7 +142,7 @@ class _HomePageViewsState extends State<HomePageViews> {
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            child: GetBuilder<HomeController>(
+            child: GetBuilder<NoteController>(
               builder: (context) => GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,

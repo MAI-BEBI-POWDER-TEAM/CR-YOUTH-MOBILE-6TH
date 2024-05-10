@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:notez/data/model/note.dart';
+import 'package:notez/domain/entities/note.dart';
 
 class NoteDB {
   static Box<Note> noteBox = Hive.box<Note>('notes');

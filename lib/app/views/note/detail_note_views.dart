@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:notez/data/controller/home_controller.dart';
-import 'package:notez/data/model/note.dart';
+import 'package:notez/data/controller/note_controller.dart';
+import 'package:notez/domain/entities/note.dart';
 import 'package:notez/utils/app_theme.dart';
-import 'package:notez/views/home/home_views.dart';
+import 'package:notez/app/views/home/home_views.dart';
 
 class DetailNotePageViews extends StatefulWidget {
   final int index;
@@ -28,7 +28,7 @@ class _DetailNotePageViewsState extends State<DetailNotePageViews> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
-  final HomeController _controller = Get.find();
+  final NoteController _controller = Get.find();
 
   String createdAt = '';
   String updatedAt = '';
@@ -89,7 +89,7 @@ class _DetailNotePageViewsState extends State<DetailNotePageViews> {
                   updatedAt: DateTime.now(),
                 );
 
-                _controller.updateNote(widget.index, note);
+                _controller.updateNote(index: widget.index, note: note);
                 Get.snackbar('TheNotez', 'Note edited!');
               },
             ),
@@ -122,7 +122,7 @@ class _DetailNotePageViewsState extends State<DetailNotePageViews> {
                             style: TextStyle(color: Colors.red),
                           ),
                           onPressed: () {
-                            _controller.deleteNote(widget.index);
+                            _controller.deleteNote(index: widget.index);
                             Get.snackbar('TheNotez', 'Note deleted!');
 
                             Get.offAll(() => const HomePageViews());
@@ -141,9 +141,9 @@ class _DetailNotePageViewsState extends State<DetailNotePageViews> {
   }
 
   Widget fetchNotesData() {
-    return StreamBuilder<Note>(
+    return FutureBuilder<Note>(
       // GET 1 note data pake UUID yg dipilih
-      stream: _controller.getSingleNote(widget.note.uuid.toString()),
+      future: _controller.getNote(uuid: widget.note.uuid.toString()),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return Column(

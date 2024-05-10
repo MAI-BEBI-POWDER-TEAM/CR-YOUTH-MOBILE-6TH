@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:notez/data/controller/home_controller.dart';
-import 'package:notez/data/model/note.dart';
+import 'package:notez/data/controller/note_controller.dart';
+import 'package:notez/domain/entities/note.dart';
 import 'package:notez/utils/app_theme.dart';
-import 'package:notez/views/home/home_views.dart';
+import 'package:notez/app/views/home/home_views.dart';
 import 'package:uuid/uuid.dart';
 
 class AddNotePageViews extends StatefulWidget {
@@ -20,7 +20,7 @@ class _AddNotePageViewsState extends State<AddNotePageViews> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
-  final HomeController _controller = Get.find();
+  final NoteController _controller = Get.find();
   var uuid = const Uuid();
 
   @override
@@ -117,7 +117,7 @@ class _AddNotePageViewsState extends State<AddNotePageViews> {
 
               log(note.toString(), name: 'add-note-views');
 
-              await _controller.addNote(note);
+              await _controller.addNote(note: note);
               Get.offAll(() => const HomePageViews());
             }
           },

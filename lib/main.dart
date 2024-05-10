@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:notez/data/controller/home_controller.dart';
+import 'package:notez/data/controller/note_controller.dart';
 import 'package:notez/data/local/note_db.dart';
-import 'package:notez/data/model/note.dart';
+import 'package:notez/domain/entities/note.dart';
 import 'package:notez/utils/app_theme.dart';
-import 'package:notez/views/home/home_views.dart';
+import 'package:notez/app/views/home/home_views.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Hive.initFlutter();
 
   // Adapter
@@ -20,7 +19,7 @@ void main() async {
   await NoteDB.init();
 
   // Get Controller
-  Get.put(HomeController(), permanent: true);
+  Get.put(NoteController(), permanent: true);
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
