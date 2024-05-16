@@ -1,6 +1,6 @@
 # Makefile for deploying the Flutter web projects to GitHub
 
-BASE_HREF = /$(OUTPUT)/
+BASE_HREF = /CR-YOUTH-MOBILE-6TH/
 # Replace this with your GitHub username
 GITHUB_USER = andresaftari
 GITHUB_REPO = https://github.com/MAI-BEBI-POWDER-TEAM/CR-YOUTH-MOBILE-6TH
